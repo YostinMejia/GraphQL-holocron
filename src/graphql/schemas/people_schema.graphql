@@ -1,0 +1,32 @@
+
+    type People{
+        name: String!
+        height:String!
+        mass:String!
+        hairColor:String!
+        skinColor:String!
+        eyeColor:String!
+        birthYear:String!
+        gender:String!
+        url:String!
+        imageUrl: String!
+    }
+
+    type Query{
+        people:[People]!
+    }
+
+
+
+# // input AddPeopleInput{
+# //     people:People!
+# // }
+
+# // type AddPeoplePayload{
+# //     success: Boolean!
+# //     people: People!
+# // }
+    
+# // type Mutation{
+# //     addPeople(input: AddPeopleInput): AddPeoplePayload!
+# // }

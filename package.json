@@ -1,0 +1,29 @@
+{
+  "name": "graphql-holocron",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "compile": "tsc",
+    "start": "npm run compile && node ./dist/src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "codegen": "graphql-codegen --config codegen.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@graphql-codegen/cli": "5.0.2",
+    "@graphql-codegen/typescript": "4.0.9",
+    "@graphql-codegen/typescript-document-nodes": "4.0.9",
+    "@graphql-codegen/typescript-resolvers": "4.2.1",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.4",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "@apollo/datasource-rest": "^6.3.0",
+    "@apollo/server": "^4.11.0",
+    "graphql": "^16.9.0"
+  }
+}
