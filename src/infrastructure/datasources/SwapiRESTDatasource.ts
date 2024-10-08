@@ -1,8 +1,7 @@
 import { DataSourceConfig, RESTDataSource } from "@apollo/datasource-rest";
-import { PeopleModel } from "../../domain/models/people.js";
-import path from "path";
+import { IFilm, IPerson, IPlanet, IVehicle } from "../../domain/types/types.js";
 
-export interface ApiResponse<T extends results> {
+export interface ApiResponse<T> {
     count: number;
     next?: string;
     previous?: string;
@@ -111,21 +110,35 @@ export class SwapiRESTDatasource extends RESTDataSource {
         this.baseURL = baseUrl;
     }
 
-    // Fetch and map People data to PeopleModel
-    async fetchAllPeople(path:string): Promise<PeopleModel[]> {
+    async fetchAllPeople(path: string): Promise<ApiResponse<IPerson>> {
         const response = await this.get<ApiResponse<PeopleApi>>(path);
-        return response.results.map(person => this.parsePeople(person));
+        return {
+            count: response.count,
+            next: response.next,
+            previous: response.previous,
+            results: response.results.map((person) => {
+                return {
+                    name: person.name,
+                    height: person.height,
+                    mass: person.mass,
+                    hairColor: person.hair_color,
+                    skinColor: person.skin_color,
+                    eyeColor: person.eye_color,
+                    birthYear: person.birth_year,
+                    gender: person.gender,
+                    homeworld: person.homeworld,
+                    films: person.films,
+                    vehicles: person.vehicles,
+                    url: person.url
+                }
+            })
+        }
     }
 
-    // Fetch by ID and map to PeopleModel
-    async getPeopleById(path:string,id: string): Promise<PeopleModel | null> {
-        const person = await this.get<PeopleApi>(`${path}/${encodeURIComponent(id)}`);
-        return person ? this.parsePeople(person) : null;
-    }
-
-    // Parse People API response into a domain model
-    parsePeople(person: PeopleApi): PeopleModel {
-        return new PeopleModel({
+    async getPersonById(path: string): Promise<IPerson | null> {
+        const person = await this.get<PeopleApi>(path)
+        
+        return person ? {
             name: person.name,
             height: person.height,
             mass: person.mass,
@@ -136,11 +149,141 @@ export class SwapiRESTDatasource extends RESTDataSource {
             gender: person.gender,
             homeworld: person.homeworld,
             films: person.films,
-            species: person.species,
             vehicles: person.vehicles,
-            starships: person.starships,
             url: person.url,
-        });
+        } : null;
     }
 
+    async fetchAllPlanets(path: string): Promise<ApiResponse<IPlanet>> {
+        const response = await this.get<ApiResponse<PlanetApi>>(path);
+        return {
+            count: response.count,
+            next: response.next,
+            previous: response.previous,
+            results: response.results.map((planet) => {
+                return {
+                    name: planet.name,
+                    rotationPeriod: planet.rotation_period,
+                    orbitalPeriod: planet.orbital_period,
+                    diameter: planet.diameter,
+                    climate: planet.climate,
+                    gravity: planet.gravity,
+                    terrain: planet.terrain,
+                    surfaceWater: planet.surface_water,
+                    population: planet.population,
+                    residents: planet.residents,
+                    films: planet.films,
+                    url: planet.url,
+                }
+            })
+        }
+    }
+
+    async getPlanetById(path: string): Promise<IPlanet | null> {
+        const planet = await this.get<PlanetApi>(`${path}`)
+        return planet ? {
+            name: planet.name,
+            rotationPeriod: planet.rotation_period,
+            orbitalPeriod: planet.orbital_period,
+            diameter: planet.diameter,
+            climate: planet.climate,
+            gravity: planet.gravity,
+            terrain: planet.terrain,
+            surfaceWater: planet.surface_water,
+            population: planet.population,
+            residents: planet.residents,
+            films: planet.films,
+            url: planet.url,
+        } : null;
+    }
+
+    async fetchAllFilms(path: string): Promise<ApiResponse<IFilm>> {
+        const response = await this.get<ApiResponse<FilmApi>>(path);
+        return {
+            count: response.count,
+            next: response.next,
+            previous: response.previous,
+            results: response.results.map((film) => {
+                return {
+
+                    title: film.title,
+                    episodeId: film.episode_id,
+                    openingCrawl: film.opening_crawl,
+                    director: film.director,
+                    producer: film.producer,
+                    releaseDate: film.release_date,
+                    characters: film.characters,
+                    planets: film.planets,
+                    vehicles: film.vehicles,
+                    url: film.url,
+
+
+                }
+            })
+        }
+    }
+
+    async getFilmById(path: string): Promise<IFilm | null> {
+        const film = await this.get<FilmApi>(`${path}`)
+        return film ? {
+            title: film.title,
+            episodeId: film.episode_id,
+            openingCrawl: film.opening_crawl,
+            director: film.director,
+            producer: film.producer,
+            releaseDate: film.release_date,
+            characters: film.characters,
+            planets: film.planets,
+            vehicles: film.vehicles,
+            url: film.url,
+
+        } : null;
+    }
+
+    async fetchAllVehicles(path: string): Promise<ApiResponse<IVehicle>> {
+        const response = await this.get<ApiResponse<VehicleApi>>(path);
+        return {
+            count: response.count,
+            next: response.next,
+            previous: response.previous,
+            results: response.results.map((vehicle) => {
+                return {
+                    name: vehicle.name,
+                    model: vehicle.model,
+                    manufacturer: vehicle.manufacturer,
+                    costInCredits: vehicle.cost_in_credits,
+                    length: vehicle.length,
+                    maxAtmospheringSpeed: vehicle.max_atmosphering_speed,
+                    crew: vehicle.crew,
+                    passengers: vehicle.passengers,
+                    cargoCapacity: vehicle.cargo_capacity,
+                    consumables: vehicle.consumables,
+                    vehicleClass: vehicle.vehicle_class,
+                    pilots: vehicle.pilots,
+                    films: vehicle.films,
+                    url: vehicle.url,
+                }
+            })
+        }
+    }
+
+    async getVehicleyId(path: string): Promise<IVehicle | null> {
+        const vehicle = await this.get<VehicleApi>(`${path}`)
+        return vehicle ? {
+            name: vehicle.name,
+            model: vehicle.model,
+            manufacturer: vehicle.manufacturer,
+            costInCredits: vehicle.cost_in_credits,
+            length: vehicle.length,
+            maxAtmospheringSpeed: vehicle.max_atmosphering_speed,
+            crew: vehicle.crew,
+            passengers: vehicle.passengers,
+            cargoCapacity: vehicle.cargo_capacity,
+            consumables: vehicle.consumables,
+            vehicleClass: vehicle.vehicle_class,
+            pilots: vehicle.pilots,
+            films: vehicle.films,
+            url: vehicle.url,
+        } : null;
+    }
 }
