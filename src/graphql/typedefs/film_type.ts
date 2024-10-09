@@ -1,7 +1,16 @@
 export const FilmType=/*GraphQL*/`
 scalar Date
 
+type FilmsResponse implements QueryAllResponse
+{
+    count:Int!
+    next:String
+    previous:String
+    results:[Film]!
+}
+
 type Film{
+
     title:String!
     episodeId:String!
     openingCrawl:String!
@@ -14,5 +23,9 @@ type Film{
     url:String!
 }
 
+    type Query{
+        films(pagination:PaginationInput):FilmsResponse!
+        film(id:String,pagination:PaginationInput):Film
+    }
 `
 

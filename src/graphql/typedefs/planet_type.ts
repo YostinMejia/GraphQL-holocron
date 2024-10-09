@@ -1,7 +1,16 @@
 
 export const PlanetType =/*GraphQL */`
 
-    type Planet {
+
+type PlanetResponse implements QueryAllResponse
+{
+    count:Int!
+    next:String
+    previous:String
+    results:[Planet]!
+}
+
+    type Planet  {
 
         name:String!
         rotationPeriod:String!
@@ -15,5 +24,10 @@ export const PlanetType =/*GraphQL */`
         residents:PeopleLink!
         films:FilmLink!
         url:String!
+    }
+
+    type Query{
+        planets(pagination:PaginationInput):PlanetResponse!
+        planet(id:String,pagination:PaginationInput):Planet
     }
 `

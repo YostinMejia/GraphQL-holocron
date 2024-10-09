@@ -1,26 +1,25 @@
-export const Links = /*GraphQl */`
+export const LinksType = /*GraphQl */`
     interface ILink{
-        totalCount: Int!
+        count: Int!
     }
 
-
 type PeopleLink implements ILink{
-    totalCount: Int!
+    count: Int!
     results: [People]!
 }
 
 type FilmLink implements ILink{
-    totalCount: Int!
+    count: Int!
     results: [Film]!
 }
 
 type VehicleLink implements ILink{
-    totalCount: Int!
+    count: Int!
     results: [Vehicle]!
 }
 
 type PlanetLink implements ILink{
-    totalCount: Int!
+    count: Int!
     results: [Planet]!
 }
 `

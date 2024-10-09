@@ -1,5 +1,13 @@
 
 export const PeopleType = /*GraphQL*/`
+
+type PeopleResponse implements QueryAllResponse{
+    count:Int!
+    next:String
+    previous:String
+    results:[People]!
+}
+
 type People{
     name: String!
     height:String!
@@ -16,9 +24,10 @@ type People{
 }
 
 type Query{
-    people:[People]!,
-    person(id:String):People
+    people(pagination:PaginationInput):PeopleResponse!,
+    person(id:String, pagination:PaginationInput):People
 }
+
 `
 
 

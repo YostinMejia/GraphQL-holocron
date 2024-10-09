@@ -1,4 +1,15 @@
 export const VehicleType =/*GraphQL */`
+
+
+type VehicleResponse implements QueryAllResponse
+{
+    count:Int!
+    next:String
+    previous:String
+    results:[Vehicle]!
+}
+
+
 type Vehicle{
 
     name:String!
@@ -16,4 +27,9 @@ type Vehicle{
     films:FilmLink!
     ulr:String!
 }
+
+    type Query{
+        vehicles(pagination:PaginationInput):VehicleResponse!
+        vehicle(id:String,pagination:PaginationInput):Vehicle
+    }
 `
