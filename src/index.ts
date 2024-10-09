@@ -7,6 +7,7 @@ import { PeopleType } from './graphql/typedefs/people_type.js';
 import { FilmType } from './graphql/typedefs/film_type.js';
 import { PlanetType } from './graphql/typedefs/planet_type.js';
 import { VehicleType } from './graphql/typedefs/vehicle_type.js';
+import { Links } from './graphql/typedefs/links_type.js';
 
 export interface ContextValue {
   dataSources: {
@@ -15,8 +16,10 @@ export interface ContextValue {
 }
 
 const server = new ApolloServer<ContextValue>({
-  typeDefs: mergeTypeDefs([PeopleType, FilmType, PlanetType, VehicleType]),
-  resolvers: mergeResolvers([PeopleResolver])
+  typeDefs: mergeTypeDefs([PeopleType, FilmType, PlanetType, VehicleType, Links]),
+  resolvers: mergeResolvers([PeopleResolver]),
+  
+
 })
 
 const { url } = await startStandaloneServer(server, {
@@ -30,5 +33,7 @@ const { url } = await startStandaloneServer(server, {
     }
   }
 });
+
+
 
 console.log(`🚀  Server ready at: ${url}`);

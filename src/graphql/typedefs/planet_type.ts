@@ -12,8 +12,8 @@ export const PlanetType =/*GraphQL */`
         terrain:String!
         surfaceWater:String!
         population:String!
-        residents:[People]!
-        films:[Film]!
+        residents:PeopleLink!
+        films:FilmLink!
         url:String!
     }
 `

@@ -10,8 +10,8 @@ type People{
     birthYear:String!
     gender:String!
     homeworld: Planet!
-    films:[Film]!
-    vehicles:[Vehicle]!
+    films:FilmLink!
+    vehicles:VehicleLink!
     url:String!
 }
 

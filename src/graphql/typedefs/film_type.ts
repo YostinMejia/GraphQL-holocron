@@ -8,9 +8,9 @@ type Film{
     director:String!
     producer:String!
     releaseDate:Date!
-    characters:[People]!
-    planets:[Planet]!
-    vehicles:[Vehicle]!
+    characters:PeopleLink!
+    planets:PlanetLink!
+    vehicles:VehicleLink!
     url:String!
 }
 

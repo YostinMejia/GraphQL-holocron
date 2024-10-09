@@ -112,6 +112,7 @@ export class SwapiRESTDatasource extends RESTDataSource {
 
     async fetchAllPeople(path: string): Promise<ApiResponse<IPerson>> {
         const response = await this.get<ApiResponse<PeopleApi>>(path);
+        
         return {
             count: response.count,
             next: response.next,
@@ -135,9 +136,9 @@ export class SwapiRESTDatasource extends RESTDataSource {
         }
     }
 
-    async getPersonById(path: string): Promise<IPerson | null> {
+    async getPerson(path: string): Promise<IPerson | null> {
         const person = await this.get<PeopleApi>(path)
-        
+
         return person ? {
             name: person.name,
             height: person.height,
@@ -179,8 +180,10 @@ export class SwapiRESTDatasource extends RESTDataSource {
         }
     }
 
-    async getPlanetById(path: string): Promise<IPlanet | null> {
+    async getPlanet(path: string): Promise<IPlanet | null> {
+        
         const planet = await this.get<PlanetApi>(`${path}`)
+        
         return planet ? {
             name: planet.name,
             rotationPeriod: planet.rotation_period,
@@ -223,8 +226,10 @@ export class SwapiRESTDatasource extends RESTDataSource {
         }
     }
 
-    async getFilmById(path: string): Promise<IFilm | null> {
+    async getFilm(path: string): Promise<IFilm | null> {
+        
         const film = await this.get<FilmApi>(`${path}`)
+
         return film ? {
             title: film.title,
             episodeId: film.episode_id,
@@ -267,8 +272,9 @@ export class SwapiRESTDatasource extends RESTDataSource {
         }
     }
 
-    async getVehicleyId(path: string): Promise<IVehicle | null> {
+    async getVehicle(path: string): Promise<IVehicle | null> {
         const vehicle = await this.get<VehicleApi>(`${path}`)
+        
         return vehicle ? {
             name: vehicle.name,
             model: vehicle.model,
