@@ -21,8 +21,8 @@ type PlanetResponse implements QueryAllResponse
         terrain:String!
         surfaceWater:String!
         population:String!
-        residents:PeopleLink!
-        films:FilmLink!
+        residents:[People]!
+        films:[Film]!
         url:String!
     }
 

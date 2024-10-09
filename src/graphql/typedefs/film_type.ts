@@ -17,9 +17,9 @@ type Film{
     director:String!
     producer:String!
     releaseDate:Date!
-    characters:PeopleLink!
-    planets:PlanetLink!
-    vehicles:VehicleLink!
+    characters:[People]!
+    planets:[Planet]!
+    vehicles:[Vehicle]!
     url:String!
 }
 

@@ -23,8 +23,8 @@ type Vehicle{
     cargoCapacity:String!
     consumables:String!
     vehicleClass:String!
-    pilots:PeopleLink!
-    films:FilmLink!
+    pilots:[People]!
+    films:[Film]!
     ulr:String!
 }
 

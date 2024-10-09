@@ -18,8 +18,8 @@ type People{
     birthYear:String!
     gender:String!
     homeworld: Planet!
-    films:FilmLink!
-    vehicles:VehicleLink!
+    films:[Film]!
+    vehicles:[Vehicle]!
     url:String!
 }
 
@@ -29,5 +29,3 @@ type Query{
 }
 
 `
-
-
