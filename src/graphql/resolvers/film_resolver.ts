@@ -7,6 +7,7 @@ export const FilmResolver = {
 
     Film: {
         characters: (parent: IFilm, params: PaginationInput, context: ContextValue) => {
+            
             return linkResolver(parent.characters, context.dataSources.charactersAPI.getPerson.bind(context.dataSources.charactersAPI))
         },
         planets: (parent: IFilm, params: PaginationInput, context: ContextValue) => {

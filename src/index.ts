@@ -40,11 +40,12 @@ await server.start();
 
 app.use('/',
   express.json(),
-  
+
   expressMiddleware(server, {
-    
+
     context: async () => {
       const { cache } = server
+      
       return {
         dataSources: {
           charactersAPI: new SwapiRESTDatasource("https://swapi.dev/api/", { cache })

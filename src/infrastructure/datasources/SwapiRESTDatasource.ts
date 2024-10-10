@@ -110,7 +110,7 @@ export class SwapiRESTDatasource extends RESTDataSource {
     }
 
     async fetchAllPeople(path: string): Promise<ApiResponse<IPerson>> {
-        const response = await this.get<ApiResponse<PeopleApi>>(path);
+        const response = await this.get<ApiResponse<PeopleApi>>(path, { cacheOptions: { ttl: 60 } });
 
         return {
             count: response.count,
@@ -136,8 +136,9 @@ export class SwapiRESTDatasource extends RESTDataSource {
     }
 
     async getPerson(path: string): Promise<IPerson | null> {
-        const person = await this.get<PeopleApi>(path)
-        
+
+        const person = await this.get<PeopleApi>(path, { cacheOptions: { ttl: 60 } })
+
         return person ? {
             name: person.name,
             height: person.height,
@@ -155,7 +156,7 @@ export class SwapiRESTDatasource extends RESTDataSource {
     }
 
     async fetchAllPlanets(path: string): Promise<ApiResponse<IPlanet>> {
-        const response = await this.get<ApiResponse<PlanetApi>>(path);
+        const response = await this.get<ApiResponse<PlanetApi>>(path, { cacheOptions: { ttl: 60 } });
         return {
             count: response.count,
             next: response.next,
@@ -181,7 +182,7 @@ export class SwapiRESTDatasource extends RESTDataSource {
 
     async getPlanet(path: string): Promise<IPlanet | null> {
 
-        const planet = await this.get<PlanetApi>(`${path}`)
+        const planet = await this.get<PlanetApi>(path, { cacheOptions: { ttl: 60 } })
 
         return planet ? {
             name: planet.name,
@@ -200,7 +201,8 @@ export class SwapiRESTDatasource extends RESTDataSource {
     }
 
     async fetchAllFilms(path: string): Promise<ApiResponse<IFilm>> {
-        const response = await this.get<ApiResponse<FilmApi>>(path);        
+        const response = await this.get<ApiResponse<FilmApi>>(path, { cacheOptions: { ttl: 60 } });
+
         return {
             count: response.count,
             next: response.next,
@@ -228,8 +230,8 @@ export class SwapiRESTDatasource extends RESTDataSource {
 
 
     async getFilm(path: string): Promise<IFilm | null> {
-        const film = await this.get<FilmApi>(`${path}`)
-        
+        const film = await this.get<FilmApi>(path, { cacheOptions: { ttl: 60 } })
+
         return film ? {
             title: film.title,
             episodeId: film.episode_id,
@@ -246,7 +248,7 @@ export class SwapiRESTDatasource extends RESTDataSource {
     }
 
     async fetchAllVehicles(path: string): Promise<ApiResponse<IVehicle>> {
-        const response = await this.get<ApiResponse<VehicleApi>>(path);
+        const response = await this.get<ApiResponse<VehicleApi>>(path, { cacheOptions: { ttl: 60 } });
         return {
             count: response.count,
             next: response.next,
@@ -273,7 +275,7 @@ export class SwapiRESTDatasource extends RESTDataSource {
     }
 
     async getVehicle(path: string): Promise<IVehicle | null> {
-        const vehicle = await this.get<VehicleApi>(`${path}`)
+        const vehicle = await this.get<VehicleApi>(path, { cacheOptions: { ttl: 60 } })
 
         return vehicle ? {
             name: vehicle.name,
